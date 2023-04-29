@@ -40,7 +40,7 @@ const CustomersPage = props => {
     const paginatedCustomers = Pagination.getData(filteredCustomers, currentPage, itemPerPage)
     return (
         <>
-            <Navbar/>
+
             <h1>Liste des clients</h1>
             <div className="form-group">
                 <input type="text" onChange={handleSearch} value={search} className="form-control"

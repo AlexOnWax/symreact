@@ -57,7 +57,7 @@ const formatDate = (str)=>moment(str).format('DD/MM/YYYY')
 
     return (
         <>
-            <Navbar />
+
             <h1>Liste des Factures</h1>
             <div className="form-group">
                 <input type="text" onChange={handleSearch} value={search} className="form-control"

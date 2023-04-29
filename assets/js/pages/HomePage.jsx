@@ -1,9 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 import Navbar from "../component/Navbar";
+
 const HomePage = props => {
     return(
         <>
-            <Navbar />
+
             <div className="card border-primary mb-3">
                 <div className="card-header">Alexandre API</div>
                 <div className="card-body">
@@ -12,7 +13,7 @@ const HomePage = props => {
                 </div>
             </div>
         </>
-            );
+    );
 }
 
 export default HomePage;
