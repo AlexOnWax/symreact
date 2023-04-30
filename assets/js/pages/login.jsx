@@ -1,14 +1,16 @@
 import React, {useState} from "react";
 import authApi from "../services/authApi";
-import Navbar from "../component/Navbar";
-
+import { useNavigate } from 'react-router-dom';
 const Login = ({onLogin}) => {
+
 const [credentials, setCredentials] =useState({
     username:"",
     password:""
 });
 const [error, setError] = useState("");
-const handleChange = ({currentTarget}) => {
+    const history = useNavigate();
+
+    const handleChange = ({currentTarget}) => {
     const {value,name} = currentTarget;
     setCredentials({...credentials,[name]:value});
 }
@@ -18,6 +20,7 @@ const handleSubmit = async event => {
        await authApi.authenticate(credentials);
     setError("");
     onLogin(true);
+    history("/invoices")
     }catch (error){
         setError("Aucun compte ne correspond ou les informations sont mauvaises");
     }

@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom"
-import Navbar from "../component/Navbar";
 import Pagination from "../component/Pagination";
 import customersApi from "../services/customersApi";
 const CustomersPage = props => {

@@ -11,7 +11,7 @@ function authenticate(credentials) {
         .then(token =>{
             //Je stock le token dans le local storage
             window.localStorage.setItem("authToken", `${token}`);
-            //je previen axios qu'on a maintenan un header par defau dans nos futur requete http
+            //je previen axios qu'on a maintenant un header par defau dans nos futur requete http
           setAxiosToken(token);
             // CustomersApi.findAll().then(console.log);
 
@@ -31,7 +31,7 @@ function setUp(){
     //npm install jwt-decode
     if (token){
         const jwtData = jwtDecode(token);
-        console.log(jwtData);
+
         if (jwtData.exp > new Date().getTime()/1000)
         {
             setAxiosToken(token);

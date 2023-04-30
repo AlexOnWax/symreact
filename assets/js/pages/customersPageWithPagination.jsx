@@ -46,7 +46,7 @@ const CustomersPageWithPagination = props =>{
                     <th>Id</th>
                     <th>Client</th>
                     <th>Email</th>
-                    <th>Entrprise</th>
+                    <th>Entreprise</th>
                     <th className="text-center">Factures</th>
                     <th className="text-center">Montant total</th>
                     <th>

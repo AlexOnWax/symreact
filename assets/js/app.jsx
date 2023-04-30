@@ -3,9 +3,8 @@ import React, {useState} from "react";
 import ReactDOM from "react-dom/client";
 import '../styles/app.css';
 import {
-    BrowserRouter,
-    createBrowserRouter, Route,
-    RouterProvider, Routes,
+    createBrowserRouter, Navigate,
+    Outlet, redirect, RouterProvider,
 } from "react-router-dom";
 
 //PAGES
@@ -18,47 +17,26 @@ import Navbar from "./component/Navbar";
 import AuthApi from "./services/authApi";
 
 
-// const [isAuthenticated,setAuthenticated]=useState(false);
-// const router = createBrowserRouter([
-//     {
-//         path: "/",
-//         element:  <Homepage isAuthenticated={isAuthenticated} onLogin={setAuthenticated} />,
-//         errorElement: <ErrorPage />,
-//     },
-//     {
-//         path: "/customers",
-//         element: <CustomersPage />,
-//
-//     },
-//     {
-//         path: "/invoices",
-//         element: <InvoicesPage />,
-//
-//     },
-//     {
-//         path: "/login",
-//         element: <Login />,
-//
-//     },
-// ]);
-//
-//
-// ReactDOM.createRoot(document.getElementById("root")).render(
-//     <React.StrictMode>
-//         <RouterProvider router={router} />
-//     </React.StrictMode>
-// );
+
 AuthApi.setUp();
 
 const MyApp = () => {
     //todo demander par defaut à api auth si on est connecte ou pas
     const [isAuthenticated,setAuthenticated] = useState(AuthApi.isAuthenticated);
-    console.log(isAuthenticated);
+    const ProtectedRoute = ({ isAuthenticated, redirectPath = '/login' }) => {
+        if (!isAuthenticated) {
+            return <Navigate to={redirectPath} replace />;
+        }
+        return <Outlet />;
+    };
+
     const router = createBrowserRouter([
         {
             path: "/",
             element:  (
                 <>
+                    <ProtectedRoute isAuthenticated={isAuthenticated}>
+                    </ProtectedRoute>
                     <Navbar isAuthenticated={isAuthenticated} onLogout={setAuthenticated} />
                     <HomePage />
                 </>
@@ -69,6 +47,8 @@ const MyApp = () => {
             path: "/customers",
             element: (
                 <>
+                    <ProtectedRoute isAuthenticated={isAuthenticated}>
+                    </ProtectedRoute>
                     <Navbar isAuthenticated={isAuthenticated} onLogout={setAuthenticated} />
                     <CustomersPage />
                 </>
@@ -78,6 +58,8 @@ const MyApp = () => {
             path: "/invoices",
             element: (
                 <>
+                    <ProtectedRoute isAuthenticated={isAuthenticated}>
+                    </ProtectedRoute>
                     <Navbar isAuthenticated={isAuthenticated} onLogout={setAuthenticated}/>
                     <InvoicesPage />
                 </>
@@ -87,7 +69,7 @@ const MyApp = () => {
             path: "/login",
             element: (
                 <>
-                    <Navbar isAuthenticated={isAuthenticated} onLogout={setAuthenticated} />
+                    <Navbar isAuthenticated={isAuthenticated} onLogout={setAuthenticated} redirect={redirect}  />
                     <Login onLogin={setAuthenticated} />
                 </>
             ),
@@ -103,3 +85,23 @@ const MyApp = () => {
 }
 
 ReactDOM.createRoot(document.getElementById("root")).render(<MyApp />);
+
+
+// return (
+//     <>
+//
+//         <Routes>
+//             <Route path="/" element={<HomePage />} />
+//             <Route path="/invoices" element={<InvoicesPage />} />
+//             <Route path="/Customers" element={<Customers />} />
+//             <Route path="/login" element={<Login />} />
+//         </Routes>
+//     </>);
+// }
+// ReactDOM.render(
+//     <BrowserRouter>
+//         <Navbar />
+//         <MyApp />
+//     </BrowserRouter>,
+//     document.getElementById('root')
+// );

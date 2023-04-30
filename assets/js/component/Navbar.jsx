@@ -3,13 +3,16 @@ import {NavLink} from "react-router-dom"
 import AuthApi from "../services/authApi";
 import authApi from "../services/authApi";
 import {isElement} from "react-dom/test-utils";
+import { useNavigate } from 'react-router-dom';
 const Navbar = ({isAuthenticated, onLogout}) => {
-const handleLogout = () =>{
-    authApi.logout();
-    onLogout(false);
-}
 
- //const [isAuthenticated, setIsAuthenticated] = useState(false)
+    const history = useNavigate();
+    const handleLogout = () =>{
+        authApi.logout();
+        onLogout(false);
+        history("/login")
+    }
+
     return (
 <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
     <div  className="container-fluid">
