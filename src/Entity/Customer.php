@@ -18,13 +18,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CustomerRepository::class)]
-
 #[ApiResource(normalizationContext: ['groups' => ['customers_read']],)]
-
-
-
-
-
 
 class Customer
 {
@@ -65,7 +59,6 @@ class Customer
 
     #[ORM\OneToMany(mappedBy: 'customer', targetEntity: Invoice::class)]
     #[Groups(['customers_read'])]
-
     private Collection $invoices;
 
     #[ORM\ManyToOne(inversedBy: 'customers')]

@@ -6,22 +6,22 @@ import {
     createBrowserRouter, Navigate,
     Outlet, redirect, RouterProvider,
 } from "react-router-dom";
-
+import AuthApi from "./services/authApi";
 //PAGES
 import HomePage from "./pages/HomePage";
-import CustomersPage from "./pages/Customers";
+import CustomersPage from "./pages/CustomersPage";
 import InvoicesPage from "./pages/InvoicesPage";
 import Login from "./pages/login";
 import ErrorPage from "./pages/errorPage";
 import Navbar from "./component/Navbar";
-import AuthApi from "./services/authApi";
+import CustomerPage from "./pages/CustomerPage";
 
 
 
 AuthApi.setUp();
 
 const MyApp = () => {
-    //todo demander par defaut à api auth si on est connecte ou pas
+    //todo demander par default à api auth si on est connecte ou pas
     const [isAuthenticated,setAuthenticated] = useState(AuthApi.isAuthenticated);
     const ProtectedRoute = ({ isAuthenticated, redirectPath = '/login' }) => {
         if (!isAuthenticated) {
@@ -39,6 +39,18 @@ const MyApp = () => {
                     </ProtectedRoute>
                     <Navbar isAuthenticated={isAuthenticated} onLogout={setAuthenticated} />
                     <HomePage />
+                </>
+            ),
+            errorElement: <ErrorPage />,
+        },
+        {
+            path: "/customers/:id",
+            element:  (
+                <>
+                    <ProtectedRoute isAuthenticated={isAuthenticated}>
+                    </ProtectedRoute>
+                    <Navbar isAuthenticated={isAuthenticated} onLogout={setAuthenticated} />
+                    <CustomerPage />
                 </>
             ),
             errorElement: <ErrorPage />,

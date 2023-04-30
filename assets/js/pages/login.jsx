@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import authApi from "../services/authApi";
 import { useNavigate } from 'react-router-dom';
+import Field from "../component/forms/Field";
 const Login = ({onLogin}) => {
 
 const [credentials, setCredentials] =useState({
@@ -28,30 +29,13 @@ const handleSubmit = async event => {
 
     return(
         <>
-
         <h1>Connexion à l'application</h1>
             <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="_username">Adresse email</label>
-                    <input value={credentials.username}
-                           onChange={handleChange}
-                           className={"form-control" + (error && " is-invalid")}
-                           type="email"
-                           placeholder="Adresse email"
-                           name="username"
-                           id="username"/>
-                    {error && <p className="invalid-feedback">{error}</p> }
-                </div>
-                <div className="form-group">
-                    <label htmlFor="_username">Mot de passe</label>
-                    <input value={credentials.password}
-                           onChange={handleChange}
-                           className="form-control "
-                           type="password"
-                           placeholder="Mot de passe"
-                           name="password"
-                           id="password"/>
-                </div>
+                <Field label="Adresse email" name='username' value={credentials.username} onChange={handleChange}
+                       placeHolder="Adresse email de connexion" error={error} />
+                <Field label="Mot de passe" name='password' value={credentials.password} onChange={handleChange}
+                       placeHolder="Votre mot de passe" error="" type="password"/>
+
                 <div className="form-group">
                     <button type="submit" className="btn btn-success">Connexion</button>
                 </div>

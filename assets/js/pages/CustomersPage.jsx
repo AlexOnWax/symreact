@@ -39,8 +39,11 @@ const CustomersPage = props => {
     const paginatedCustomers = Pagination.getData(filteredCustomers, currentPage, itemPerPage)
     return (
         <>
-
-            <h1>Liste des clients</h1>
+            <div className="d-flex justify-content-between align-items-center mb3" >
+                <h1>Liste des clients</h1>
+                <Link to="/customers/new" className="btn btn-primary">Créé un client</Link>
+            </div>
+            
             <div className="form-group">
                 <input type="text" onChange={handleSearch} value={search} className="form-control"
                        placeholder="Rechercher"/>
