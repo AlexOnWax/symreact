@@ -29,7 +29,7 @@ class CurrentUserExtension implements QueryCollectionExtensionInterface, QueryIt
         if(($ressourceClass === Customer::class || $ressourceClass === Invoice::class) && !$this->auth->isGranted('ROLE_ADMIN') && $user instanceof User) {
             $routeAlias = $queryBuilder->getRootAliases()[0];
             if ($ressourceClass === Customer::class) {
-                $queryBuilder->andWhere()("$routeAlias.user = :user");
+                $queryBuilder->andWhere("$routeAlias.user = :user");
             } else if ($ressourceClass === Invoice::class) {
                 $queryBuilder->join("$routeAlias.customer", " c")
                     ->andWhere("c.user=:user");
