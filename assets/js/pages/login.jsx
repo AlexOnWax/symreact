@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import authApi from "../services/authApi";
 import {Link, useNavigate} from 'react-router-dom';
 import Field from "../component/forms/Field";
+import {toast, ToastContainer} from "react-toastify";
 const Login = ({onLogin}) => {
 
 const [credentials, setCredentials] =useState({
@@ -20,16 +21,20 @@ const handleSubmit = async event => {
     try {
        await authApi.authenticate(credentials);
     setError("");
+        toast.success("Vous êtes connecté");
     onLogin(true);
     history("/invoices")
     }catch (error){
         setError("Aucun compte ne correspond ou les informations sont mauvaises");
+        toast.error("Aucun compte ne correspond ou les informations sont mauvaises")
+
     }
 };
 
     return(
         <>
         <div className="container">
+
             <h1>Connexion à l'application</h1>
                 <form onSubmit={handleSubmit}>
                     <Field label="Adresse email" name='username' value={credentials.username} onChange={handleChange}

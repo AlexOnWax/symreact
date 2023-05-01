@@ -67,7 +67,7 @@ const CustomersPage = props => {
                         <tbody>
                         {paginatedCustomers.map(customer => <tr key={customer.id}>
                             <td>{customer.id}</td>
-                            <td><Link className="navbar-brand" to={""}>{customer.firstName} {customer.lastName}</Link></td>
+                            <td><Link className="navbar-brand" to={"/customers/"+customer.id}>{customer.firstName} {customer.lastName}</Link></td>
                             <td>{customer.email}</td>
                             <td>{customer.company}</td>
                             <td className="text-center">

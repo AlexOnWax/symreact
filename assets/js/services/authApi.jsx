@@ -2,11 +2,13 @@ import React from "react";
 import axios from "axios";
 import {func} from "prop-types";
 import jwtDecode from "jwt-decode";
+import {LOGIN_API} from "../config";
+
 // import CustomersApi from "./customersApi";
 
 function authenticate(credentials) {
     return axios
-        .post("/api/login_check",credentials)
+        .post(LOGIN_API,credentials)
         .then(response =>  response.data.token)
         .then(token =>{
             //Je stock le token dans le local storage

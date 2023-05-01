@@ -7,6 +7,8 @@ import {
     Outlet, redirect, RouterProvider,
 } from "react-router-dom";
 import AuthApi from "./services/authApi";
+import {ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 //PAGES
 import HomePage from "./pages/HomePage";
 import CustomersPage from "./pages/CustomersPage";
@@ -33,12 +35,14 @@ const MyApp = () => {
     };
 
     const router = createBrowserRouter([
+
         {
             path: "/",
             element:  (
                 <>
                     <ProtectedRoute isAuthenticated={isAuthenticated}>
                     </ProtectedRoute>
+
                     <Navbar isAuthenticated={isAuthenticated} onLogout={setAuthenticated} />
                     <HomePage />
                 </>
@@ -51,6 +55,7 @@ const MyApp = () => {
                 <>
                     <ProtectedRoute isAuthenticated={isAuthenticated}>
                     </ProtectedRoute>
+
                     <Navbar isAuthenticated={isAuthenticated} onLogout={setAuthenticated} />
                     <CustomerPage />
                 </>
@@ -61,8 +66,10 @@ const MyApp = () => {
             path: "/customers",
             element: (
                 <>
+
                     <ProtectedRoute isAuthenticated={isAuthenticated}>
                     </ProtectedRoute>
+
                     <Navbar isAuthenticated={isAuthenticated} onLogout={setAuthenticated} />
                     <CustomersPage />
                 </>
@@ -74,6 +81,7 @@ const MyApp = () => {
                 <>
                     <ProtectedRoute isAuthenticated={isAuthenticated}>
                     </ProtectedRoute>
+
                     <Navbar isAuthenticated={isAuthenticated} onLogout={setAuthenticated}/>
                     <InvoicesPage />
                 </>
@@ -83,6 +91,7 @@ const MyApp = () => {
             path: "/login",
             element: (
                 <>
+
                     <Navbar isAuthenticated={isAuthenticated} onLogout={setAuthenticated} redirect={redirect}  />
                     <Login onLogin={setAuthenticated} />
                 </>
@@ -117,6 +126,7 @@ const MyApp = () => {
     return (
 
         <React.StrictMode>
+            <ToastContainer />
             <RouterProvider router={router} />
         </React.StrictMode>
     );

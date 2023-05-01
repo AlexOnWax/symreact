@@ -4,17 +4,28 @@ import AuthApi from "../services/authApi";
 import authApi from "../services/authApi";
 import {isElement} from "react-dom/test-utils";
 import { useNavigate } from 'react-router-dom';
+import {toast, ToastContainer} from "react-toastify";
 const Navbar = ({isAuthenticated, onLogout}) => {
 
     const history = useNavigate();
     const handleLogout = () =>{
+
         authApi.logout();
         onLogout(false);
+        toast.info("Vous êtes déconnecté");
         history("/login")
+
     }
+    // const handleClick = () => {
+    //     toast.info("Vous êtes déconnecté");
+    // }
 
     return (
+
 <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+    {/*<div><button onClick={handleClick}>click toast</button>*/}
+    {/*</div>*/}
+
     <div  className="container-fluid">
         <NavLink className="navbar-brand" to={"/"}>Alexandre API</NavLink>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02"

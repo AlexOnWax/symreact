@@ -4,6 +4,7 @@ import invoicesApi from "../services/invoicesApi";
 import moment from "moment";
 import Pagination from "../component/Pagination";
 import {Link, NavLink} from "react-router-dom";
+import {toast} from "react-toastify";
 
 
 
@@ -32,9 +33,10 @@ const InvoicesPage = props => {
     const handleDelete = (id) => {
         const originalInvoices = [...invoices];
         setInvoices(invoices.filter(invoices => invoices.id !== id))
-
+        toast.info("Facture supprimé");
         invoicesApi.delete(id)
             .catch(error => {
+
                 setInvoices(originalInvoices);
                 console.log(error.response);
             });
@@ -76,13 +78,13 @@ const formatDate = (str)=>moment(str).format('DD/MM/YYYY')
                         <th>Date d'envoi</th>
                         <th>Montant</th>
                         <th>Statut</th>
-                        <th>Editer</th>
+                        <th>Éditer</th>
                     </tr>
                     </thead>
                     <tbody>
                     {paginatedInvoices.map(invoice =>  <tr key={invoice.id}>
                         <td>{invoice.chrono}</td>
-                        <td>{invoice.customer.firstName} {invoice.customer.lastName}</td>
+                        <td><Link className="navbar-brand" to={"/invoices/"+invoice.id}>{invoice.customer.firstName} {invoice.customer.lastName}</Link></td>
                         <td>{formatDate(invoice.sentAt)}</td>
                         <td>{invoice.amount.toLocaleString()}</td>
                         <td><span className={"badge bg-" + STATUS_CLASSES[invoice.status]}>{STATUS_LABELS[invoice.status]}</span></td>

@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import Field from "../component/forms/Field";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import CustomersApi from "../services/customersApi";
+import {toast} from "react-toastify";
 const CustomerPage = props => {
     const history = useNavigate();
     const { id } = useParams();
@@ -66,8 +67,10 @@ const CustomerPage = props => {
        try {
            if (editing){
                 await CustomersApi.edite(id,customer)
+               toast.success("Client modifié");
            }else {
                await CustomersApi.create(customer);
+               toast.success("Client créé");
                history("/customers")
                setErrors({});
            }
