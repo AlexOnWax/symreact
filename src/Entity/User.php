@@ -48,6 +48,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Assert\NotBlank(message: 'The first name should not be blank')]
     #[Groups(['user:read', 'user:create', 'user:update'])]
 
     private ?string $email = null;
@@ -60,6 +61,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     #[Groups(['user:create','user:update'])]
+    #[Assert\NotBlank(message: 'The first name should not be blank')]
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]

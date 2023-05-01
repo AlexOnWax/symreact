@@ -15,4 +15,11 @@ class InvoicesController extends AbstractController
 
         ]);
     }
+    #[Route('/invoices/{id}', name: 'app_invoices')]
+    public function create(): Response
+    {
+        return $this->render('invoices/index.html.twig', [
+
+        ]);
+    }
 }

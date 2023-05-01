@@ -15,6 +15,8 @@ import Login from "./pages/login";
 import ErrorPage from "./pages/errorPage";
 import Navbar from "./component/Navbar";
 import CustomerPage from "./pages/CustomerPage";
+import InvoicePage from "./pages/InvoicePage";
+import RegisterPage from "./pages/RegisterPage";
 
 
 
@@ -85,6 +87,30 @@ const MyApp = () => {
                     <Login onLogin={setAuthenticated} />
                 </>
             ),
+        },
+        {
+            path: "/invoices/:id",
+            element:  (
+                <>
+                    <ProtectedRoute isAuthenticated={isAuthenticated}>
+                    </ProtectedRoute>
+                    <Navbar isAuthenticated={isAuthenticated} onLogout={setAuthenticated} />
+                    <InvoicePage />
+                </>
+            ),
+            errorElement: <ErrorPage />,
+        },
+        {
+            path: "/inscription",
+            element:  (
+                <>
+
+                    <Navbar isAuthenticated={isAuthenticated} onLogout={setAuthenticated} redirect={redirect}  />
+
+                    <RegisterPage />
+                </>
+            ),
+            errorElement: <ErrorPage />,
         },
     ]);
 

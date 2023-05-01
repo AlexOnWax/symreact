@@ -3,6 +3,7 @@ import Navbar from "../component/Navbar";
 import invoicesApi from "../services/invoicesApi";
 import moment from "moment";
 import Pagination from "../component/Pagination";
+import {Link, NavLink} from "react-router-dom";
 
 
 
@@ -57,41 +58,45 @@ const formatDate = (str)=>moment(str).format('DD/MM/YYYY')
 
     return (
         <>
+            <div className="container">
+                <div className="d-flex justify-content-between align-items-center mb3" >
+                    <h1>Liste des Factures</h1>
+                    <Link to="/invoices/new" className="btn btn-primary">Créé une facture</Link>
+                </div>
 
-            <h1>Liste des Factures</h1>
-            <div className="form-group">
-                <input type="text" onChange={handleSearch} value={search} className="form-control"
-                       placeholder="Rechercher"/>
+                <div className="form-group">
+                    <input type="text" onChange={handleSearch} value={search} className="form-control"
+                           placeholder="Rechercher"/>
+                </div>
+                <table className="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Numéro</th>
+                        <th>Client</th>
+                        <th>Date d'envoi</th>
+                        <th>Montant</th>
+                        <th>Statut</th>
+                        <th>Editer</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {paginatedInvoices.map(invoice =>  <tr key={invoice.id}>
+                        <td>{invoice.chrono}</td>
+                        <td>{invoice.customer.firstName} {invoice.customer.lastName}</td>
+                        <td>{formatDate(invoice.sentAt)}</td>
+                        <td>{invoice.amount.toLocaleString()}</td>
+                        <td><span className={"badge bg-" + STATUS_CLASSES[invoice.status]}>{STATUS_LABELS[invoice.status]}</span></td>
+                        <td>
+
+                            <NavLink className="btn btn-success" to={`/invoices/${invoice.id}`}>Editer</NavLink>&nbsp;
+                            <button className="btn btn-sm btn-primary" onClick={() => handleDelete(invoice.id)}>Supprimer</button>
+                        </td>
+
+                    </tr>)}
+                    </tbody>
+                </table>
+                <Pagination currentPage={currentPage} itemPerPage={itemPerPage} onPageChanged={handleChangePage} length={filteredInvoices.length} />
             </div>
-            <table className="table table-hover">
-                <thead>
-                <tr>
-                    <th>Numéro</th>
-                    <th>Client</th>
-                    <th>Date d'envoi</th>
-                    <th>Montant</th>
-                    <th>Statut</th>
-                    <th>Editer</th>
-                </tr>
-                </thead>
-                <tbody>
-                {paginatedInvoices.map(invoice =>  <tr key={invoice.id}>
-                    <td>{invoice.chrono}</td>
-                    <td>{invoice.customer.firstName} {invoice.customer.lastName}</td>
-                    <td>{formatDate(invoice.sentAt)}</td>
-                    <td>{invoice.amount.toLocaleString()}</td>
-                    <td><span className={"badge bg-" + STATUS_CLASSES[invoice.status]}>{STATUS_LABELS[invoice.status]}</span></td>
-                    <td>
-                        <button className="btn btn-sm btn-success">Editer</button>&nbsp;
-                        <button className="btn btn-sm btn-primary" onClick={() => handleDelete(invoice.id)}>Supprimer</button>
-                    </td>
-
-                </tr>)}
-
-
-                </tbody>
-            </table>
-            <Pagination currentPage={currentPage} itemPerPage={itemPerPage} onPageChanged={handleChangePage} length={filteredInvoices.length} />
             </>
     );
 };

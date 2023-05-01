@@ -39,53 +39,55 @@ const CustomersPage = props => {
     const paginatedCustomers = Pagination.getData(filteredCustomers, currentPage, itemPerPage)
     return (
         <>
-            <div className="d-flex justify-content-between align-items-center mb3" >
-                <h1>Liste des clients</h1>
-                <Link to="/customers/new" className="btn btn-primary">Créé un client</Link>
-            </div>
-            
-            <div className="form-group">
-                <input type="text" onChange={handleSearch} value={search} className="form-control"
-                       placeholder="Rechercher"/>
-            </div>
-            <table className="table table-hover">
-                <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Client</th>
-                    <th>Email</th>
-                    <th>Entreprise</th>
-                    <th className="text-center">Factures</th>
-                    <th className="text-center">Montant total</th>
-                    <th>
 
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
-                {paginatedCustomers.map(customer => <tr key={customer.id}>
-                    <td>{customer.id}</td>
-                    <td><Link className="navbar-brand" to={""}>{customer.firstName} {customer.lastName}</Link></td>
-                    <td>{customer.email}</td>
-                    <td>{customer.company}</td>
-                    <td className="text-center">
-                        <span>{customer.invoices.length}</span>
-                    </td>
-                    <td>{customer.totalAmount.toLocaleString()}</td>
-                    <td>
-                        <button onClick={() => handleDelete(customer.id)} disabled={customer.invoices.length > 0}
-                                className="btn btn-danger btn-sm">Supprimer
-                        </button>
-                    </td>
+                <div className="container">
+                    <div className="d-flex justify-content-between align-items-center mb3" >
+                        <h1>Liste des clients</h1>
+                        <Link to="/customers/new" className="btn btn-primary">Créé un client</Link>
+                    </div>
 
-                </tr>)}
+                    <div className="form-group">
+                        <input type="text" onChange={handleSearch} value={search} className="form-control"
+                               placeholder="Rechercher"/>
+                    </div>
+                    <table className="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Client</th>
+                            <th>Email</th>
+                            <th>Entreprise</th>
+                            <th className="text-center">Factures</th>
+                            <th className="text-center">Montant total</th>
+                            <th>
 
-                </tbody>
-            </table>
-            {itemPerPage < filteredCustomers.length &&
-            <Pagination currentPage={currentPage} itemPerPage={itemPerPage} length={filteredCustomers.length}
-                        onPageChanged={handleChangePage}/>}
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {paginatedCustomers.map(customer => <tr key={customer.id}>
+                            <td>{customer.id}</td>
+                            <td><Link className="navbar-brand" to={""}>{customer.firstName} {customer.lastName}</Link></td>
+                            <td>{customer.email}</td>
+                            <td>{customer.company}</td>
+                            <td className="text-center">
+                                <span>{customer.invoices.length}</span>
+                            </td>
+                            <td>{customer.totalAmount.toLocaleString()}</td>
+                            <td>
+                                <button onClick={() => handleDelete(customer.id)} disabled={customer.invoices.length > 0}
+                                        className="btn btn-danger btn-sm">Supprimer
+                                </button>
+                            </td>
 
+                        </tr>)}
+
+                        </tbody>
+                    </table>
+                    {itemPerPage < filteredCustomers.length &&
+                    <Pagination currentPage={currentPage} itemPerPage={itemPerPage} length={filteredCustomers.length}
+                                onPageChanged={handleChangePage}/>}
+                </div>
 
         </>
 

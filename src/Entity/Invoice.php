@@ -71,10 +71,10 @@ class Invoice
 
     #[ORM\Column]
     #[Groups(['invoices_subresource','customers_read','invoices:read'])]
-    #[Assert\NotBlank(message: "le montant de la facture est requis")]
     #[Assert\Type(
         type: 'float'
     )]
+    #[Assert\NotBlank(message: "le montant de la facture est requis")]
     private ?float $amount = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]

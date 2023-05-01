@@ -4,7 +4,7 @@ import Navbar from "../component/Navbar";
 const HomePage = props => {
     return(
         <>
-
+        <div className="container">
             <div className="card border-primary mb-3">
                 <div className="card-header">Alexandre API</div>
                 <div className="card-body">
@@ -12,6 +12,7 @@ const HomePage = props => {
                     <p className="card-text">Test des fonctionnalités offerte par mon API REST</p>
                 </div>
             </div>
+        </div>
         </>
     );
 }
