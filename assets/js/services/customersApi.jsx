@@ -24,10 +24,10 @@ function find(id){
         .then(response=>response.data);
 }
 function edite(id,customer){
-   axios.put(CUSTOMERS_API + "/" + id, customer);
+    return axios.put(CUSTOMERS_API + "/" + id, customer);
 }
 function create(customer){
-    axios.post(CUSTOMERS_API, customer);
+    return  axios.post(CUSTOMERS_API, customer);
 }
 
 export default {
